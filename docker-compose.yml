@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+  php:
+    build: ./php
+    ports:
+    - "8084:80"
+    volumes:
+    - ./form:/var/www/html
+    - ./php/php.ini:/usr/local/etc/php/php.ini
+    depends_on:
+    - mysql
+  mysql:
+   image: mysql:5.7
+   container_name: form-mysql
+   platform: linux/amd64
+   ports:
+    - "3301:3306"
+   volumes:
+   - ./mysql:/var/lib/mysql
+   environment:
+    MYSQL_ROOT_PASSWORD: password
+    MYSQL_DATABASE: form
+    MYSQL_USER: user
+    MYSQL_PASSWORD: password
+
